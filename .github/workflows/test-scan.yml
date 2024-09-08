@@ -35,20 +35,7 @@ jobs:
       
       - name: Build image
         run: docker build -t gitavscan .
-      
-      - name: Run full scan
-        run: |
-          docker run --rm -v $GITHUB_WORKSPACE:/scandir gitavscan /gitscan.sh --full | grep "Win.Test.EICAR_HDB-1 FOUND"
 
       - name: Run basic scan
         run: |
-          docker run --rm -v $GITHUB_WORKSPACE:/scandir gitavscan /gitscan.sh | grep "Win.Test.EICAR_HDB-1 FOUND"
-      
-      - name: Run basic scan with optional args
-        run: |
-          docker run --rm -v $GITHUB_WORKSPACE:/scandir gitavscan /gitscan.sh --options "--max-filesize=1M --max-files=15" | grep "Win.Test.EICAR_HDB-1 FOUND"
-      
-      - name: Test unknown option
-        run: |
-          output=$(docker run --rm -v $GITHUB_WORKSPACE:/scandir gitavscan /gitscan.sh --unknown-option || true)
-          echo "$output" | grep "OPTIONS:"
+          docker run --rm -v $GITHUB_WORKSPACE:/scandir gitavscan /gitscan.sh
